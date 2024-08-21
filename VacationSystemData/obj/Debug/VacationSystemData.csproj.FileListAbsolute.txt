@@ -1,0 +1,6 @@
+C:\Users\msi\source\repos\VacationSystemData\bin\Debug\VacationSystemData.dll
+C:\Users\msi\source\repos\VacationSystemData\bin\Debug\VacationSystemData.pdb
+C:\Users\msi\source\repos\VacationSystemData\obj\Debug\VacationSystemData.csproj.AssemblyReference.cache
+C:\Users\msi\source\repos\VacationSystemData\obj\Debug\VacationSystemData.csproj.CoreCompileInputs.cache
+C:\Users\msi\source\repos\VacationSystemData\obj\Debug\VacationSystemData.dll
+C:\Users\msi\source\repos\VacationSystemData\obj\Debug\VacationSystemData.pdb

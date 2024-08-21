@@ -1,0 +1,9 @@
+C:\Users\msi\source\repos\VacationSystemLogic\bin\Release\VacationSystemLogic.dll
+C:\Users\msi\source\repos\VacationSystemLogic\bin\Release\VacationSystemLogic.pdb
+C:\Users\msi\source\repos\VacationSystemLogic\bin\Release\VacationSystemData.dll
+C:\Users\msi\source\repos\VacationSystemLogic\bin\Release\VacationSystemData.pdb
+C:\Users\msi\source\repos\VacationSystemLogic\obj\Release\VacationSystemLogic.csproj.AssemblyReference.cache
+C:\Users\msi\source\repos\VacationSystemLogic\obj\Release\VacationSystemLogic.csproj.CoreCompileInputs.cache
+C:\Users\msi\source\repos\VacationSystemLogic\obj\Release\Vacation.6FD00492.Up2Date
+C:\Users\msi\source\repos\VacationSystemLogic\obj\Release\VacationSystemLogic.dll
+C:\Users\msi\source\repos\VacationSystemLogic\obj\Release\VacationSystemLogic.pdb
