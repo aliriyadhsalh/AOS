@@ -33,14 +33,16 @@ namespace VacationSystemData
         public static async Task<bool?> UpdateHoursBasedAttendance(int EmployeeID,DateTime DateFrom,DateTime DateTo)
         {
             string Query = @"UPDATE OverTimeAttendance
-                          SET NumberOfHours = 
-                          CASE 
-                          WHEN DATEPART(WEEKDAY, Date) = 6 THEN 0  -- يوم الجمعة
-                          WHEN DATEPART(WEEKDAY, Date) = 7 THEN 7  -- يوم السبت
-                          ELSE 3   -- باقي الأيام
-                          END
-                          WHERE Date >= @DateFrom And Date <= @DateTo
-                          And EmployeeID = @EmployeeID;";
+SET NumberOfHours = 
+CASE 
+    WHEN DATEPART(WEEKDAY, Date) = 6 THEN 0  -- يوم الجمعة
+    WHEN DATEPART(WEEKDAY, Date) = 7 THEN 7  -- يوم السبت
+    ELSE 3   -- باقي الأيام
+END
+WHERE CAST(Date AS DATE) >= CAST(@DateFrom AS DATE)
+AND CAST(Date AS DATE) <= CAST(@DateTo AS DATE)
+AND EmployeeID = @EmployeeID;
+";
             using (SqlCommand command = new SqlCommand(Query))
             {
                 command.Parameters.AddWithValue("@EmployeeID", EmployeeID);
@@ -58,7 +60,8 @@ namespace VacationSystemData
         {
             string Query = @"UPDATE OverTimeAttendance
                           SET NumberOfHours = 0
-                          WHERE Date >= @DateFrom And Date <= @DateTo
+                          WHERE CAST(Date AS DATE) >= CAST(@DateFrom AS DATE)
+                          AND CAST(Date AS DATE) <= CAST(@DateTo AS DATE)
                           And EmployeeID = @EmployeeID;";
 
             using (SqlCommand command = new SqlCommand(Query))

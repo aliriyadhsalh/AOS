@@ -20,7 +20,7 @@ namespace VacationSystem
 
         private int _GetEmployeeID()
         {
-            return (int)dgv.CurrentRow.Cells[0].Value;
+            return (int)dgv.CurrentRow.Cells[dgv.ColumnCount - 1].Value;
         }
         private async void frmEmployees_Load(object sender, EventArgs e)
         {
@@ -29,12 +29,14 @@ namespace VacationSystem
 
             if (dgv.RowCount >0)
             {
-                dgv.Columns[0].HeaderText = "الرقم التعريفي";
+                dgv.Columns[0].HeaderText = "التسلسل";
                 dgv.Columns[1].HeaderText = "الاسم";
                 dgv.Columns[2].HeaderText = "العنوان الوظيفي";
                 dgv.Columns[3].HeaderText = "الدرجة الوظيفية";
                 dgv.Columns[4].HeaderText = "مبلغ الساعة الواحدة";
                 dgv.Columns[5].HeaderText = "مبلغ الطعام لليوم الواحد";
+                dgv.Columns[6].HeaderText = "الرقم التعريفي";
+
 
             }
         }
@@ -48,7 +50,7 @@ namespace VacationSystem
 
         private void EditEmployeeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form frm = new frmAddEditEmployee((int)dgv.CurrentRow.Cells[0].Value);
+            Form frm = new frmAddEditEmployee(_GetEmployeeID());
             frm.ShowDialog();
             frmEmployees_Load(null, null);
 
@@ -61,7 +63,7 @@ namespace VacationSystem
                 int EmployeeID = _GetEmployeeID();
                 bool? IsDeleteAttendance = await clsAttendance.Delete(EmployeeID);
                 bool?IsDeleteOverTime = await clsOverTime.Delete(EmployeeID);
-                bool? IsDeleteEmployee = await clsEmployee.Delete((int)dgv.CurrentRow.Cells[0].Value);
+                bool? IsDeleteEmployee = await clsEmployee.Delete(EmployeeID);
 
                 if (IsDeleteAttendance != null)
                 {
@@ -91,7 +93,7 @@ namespace VacationSystem
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            Form frm = new frmAddEditEmployee((int)dgv.CurrentRow.Cells[0].Value);
+            Form frm = new frmAddEditEmployee(_GetEmployeeID());
             frm.ShowDialog();
             frmEmployees_Load(null, null);
 
@@ -104,7 +106,7 @@ namespace VacationSystem
                 int EmployeeID = _GetEmployeeID();
                 bool? IsDeleteAttendance = await clsAttendance.Delete(EmployeeID);
                 bool? IsDeleteOverTime = await clsOverTime.Delete(EmployeeID);
-                bool? IsDeleteEmployee = await clsEmployee.Delete((int)dgv.CurrentRow.Cells[0].Value);
+                bool? IsDeleteEmployee = await clsEmployee.Delete(EmployeeID);
 
                 if (IsDeleteAttendance != null)
                 {

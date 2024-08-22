@@ -4,3 +4,9 @@ C:\Users\msi\source\repos\VacationSystemData\obj\Debug\VacationSystemData.csproj
 C:\Users\msi\source\repos\VacationSystemData\obj\Debug\VacationSystemData.csproj.CoreCompileInputs.cache
 C:\Users\msi\source\repos\VacationSystemData\obj\Debug\VacationSystemData.dll
 C:\Users\msi\source\repos\VacationSystemData\obj\Debug\VacationSystemData.pdb
+C:\Users\msi\Desktop\AOSystem\VacationSystemData\bin\Debug\VacationSystemData.dll
+C:\Users\msi\Desktop\AOSystem\VacationSystemData\bin\Debug\VacationSystemData.pdb
+C:\Users\msi\Desktop\AOSystem\VacationSystemData\obj\Debug\VacationSystemData.csproj.AssemblyReference.cache
+C:\Users\msi\Desktop\AOSystem\VacationSystemData\obj\Debug\VacationSystemData.csproj.CoreCompileInputs.cache
+C:\Users\msi\Desktop\AOSystem\VacationSystemData\obj\Debug\VacationSystemData.dll
+C:\Users\msi\Desktop\AOSystem\VacationSystemData\obj\Debug\VacationSystemData.pdb

@@ -15,18 +15,20 @@ namespace VacationSystemData
             string Position,
             string JobTitle,
             float PriceForOneHour,
-            float PriceForDailyMeal)
+            float PriceForDailyMeal,
+            int SequenceNumber)  // إضافة الباراميتر الجديد
         {
             string Query = @"
-        INSERT INTO [dbo].[Employees]
-            ([EmployeeName]
-            ,[Position]
-            ,[JobTitle]
-            ,[PriceForOneHour]
-            ,[PriceForDailyMeal])
-        VALUES
-            (@EmployeeName, @Position, @JobTitle, @PriceForOneHour, @PriceForDailyMeal);
-        SELECT SCOPE_IDENTITY();";
+    INSERT INTO [dbo].[Employees]
+        ([EmployeeName]
+        ,[Position]
+        ,[JobTitle]
+        ,[PriceForOneHour]
+        ,[PriceForDailyMeal]
+        ,[SequenceNumber])  
+    VALUES
+        (@EmployeeName, @Position, @JobTitle, @PriceForOneHour, @PriceForDailyMeal, @SequenceNumber);
+    SELECT SCOPE_IDENTITY();";
 
             using (SqlCommand command = new SqlCommand(Query))
             {
@@ -35,6 +37,7 @@ namespace VacationSystemData
                 command.Parameters.AddWithValue("@JobTitle", JobTitle);
                 command.Parameters.AddWithValue("@PriceForOneHour", PriceForOneHour);
                 command.Parameters.AddWithValue("@PriceForDailyMeal", PriceForDailyMeal);
+                command.Parameters.AddWithValue("@SequenceNumber", SequenceNumber);  // تعيين القيمة للباراميتر الجديد
 
                 return await clsPrimaryFunctions.Add(command);
             }
@@ -45,16 +48,18 @@ namespace VacationSystemData
             string Position,
             string JobTitle,
             float PriceForOneHour,
-            float PriceForDailyMeal)
+            float PriceForDailyMeal,
+            int SequenceNumber)  // إضافة الباراميتر الجديد
         {
             string Query = @"
-        UPDATE [dbo].[Employees]
-        SET [EmployeeName] = @Name
-           ,[Position] = @Position
-           ,[JobTitle] = @JobTitle
-           ,[PriceForOneHour] = @PriceForOneHour
-           ,[PriceForDailyMeal] = @PriceForDailyMeal
-        WHERE EmployeeID = @EmployeeID";
+    UPDATE [dbo].[Employees]
+    SET [EmployeeName] = @Name
+       ,[Position] = @Position
+       ,[JobTitle] = @JobTitle
+       ,[PriceForOneHour] = @PriceForOneHour
+       ,[PriceForDailyMeal] = @PriceForDailyMeal
+       ,[SequenceNumber] = @SequenceNumber  
+    WHERE EmployeeID = @EmployeeID";
 
             using (SqlCommand command = new SqlCommand(Query))
             {
@@ -64,6 +69,7 @@ namespace VacationSystemData
                 command.Parameters.AddWithValue("@JobTitle", JobTitle);
                 command.Parameters.AddWithValue("@PriceForOneHour", PriceForOneHour);
                 command.Parameters.AddWithValue("@PriceForDailyMeal", PriceForDailyMeal);
+                command.Parameters.AddWithValue("@SequenceNumber", SequenceNumber);  // تعيين القيمة للباراميتر الجديد
 
                 return await clsPrimaryFunctions.Update(command);
             }
@@ -83,7 +89,13 @@ DELETE FROM [dbo].[Employees]
         }
         public static async Task <DataTable> GetAll()
         {
-            string Query = @"select * from  Employees";
+            string Query = @"SELECT [EmployeeID]
+      ,[EmployeeName]
+      ,[Position]
+      ,[JobTitle]
+      ,[PriceForOneHour]
+      ,[PriceForDailyMeal]
+  FROM [dbo].[Employees]";
             using (SqlCommand command = new SqlCommand(Query))
             {
                 return await clsPrimaryFunctions.Get(command);
@@ -91,28 +103,38 @@ DELETE FROM [dbo].[Employees]
         }
         public static async Task<DataTable> GetEmployeeList()
         {
-            string Query = @"select * from  Employees";
+            string Query = @"SELECT
+       [SequenceNumber]
+       ,[EmployeeName]
+      ,[Position]
+      ,[JobTitle]
+      ,[PriceForOneHour]
+      ,[PriceForDailyMeal]
+      ,[EmployeeID]
+     FROM [dbo].[Employees]
+    order by SequenceNumber";
             using (SqlCommand command = new SqlCommand(Query))
             {
                 return await clsPrimaryFunctions.Get(command);
             }
         }
 
-        public static bool Find(int ID, ref string Name, ref string Position, ref string JobTitle, ref float PriceForOneHour, ref float PriceForDailyMeal)
+        public static bool Find(int ID, ref string Name, ref string Position, ref string JobTitle, ref float PriceForOneHour, ref float PriceForDailyMeal, ref int SequenceNumber)
         {
             bool isFound = false;
 
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
                 string query = @"
-            SELECT [EmployeeID]
-                  ,[EmployeeName]
-                  ,[Position]
-                  ,[JobTitle]
-                  ,[PriceForOneHour]
-                  ,[PriceForDailyMeal]
-            FROM [dbo].[Employees]
-            WHERE EmployeeID = @EmployeeID";
+        SELECT [EmployeeID]
+              ,[EmployeeName]
+              ,[Position]
+              ,[JobTitle]
+              ,[PriceForOneHour]
+              ,[PriceForDailyMeal]
+              ,[SequenceNumber]  
+        FROM [dbo].[Employees]
+        WHERE EmployeeID = @EmployeeID";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -132,6 +154,7 @@ DELETE FROM [dbo].[Employees]
                                 JobTitle = reader["JobTitle"].ToString();
                                 PriceForOneHour = Convert.ToSingle(reader["PriceForOneHour"]);
                                 PriceForDailyMeal = Convert.ToSingle(reader["PriceForDailyMeal"]);
+                                SequenceNumber = Convert.ToInt32(reader["SequenceNumber"]);  // الحصول على قيمة العمود الجديد
                             }
                             else
                             {
@@ -149,21 +172,22 @@ DELETE FROM [dbo].[Employees]
 
             return isFound;
         }
-        public static bool Find( string Name,ref int ID, ref string Position, ref string JobTitle, ref float PriceForOneHour, ref float PriceForDailyMeal)
+        public static bool Find(string Name, ref int ID, ref string Position, ref string JobTitle, ref float PriceForOneHour, ref float PriceForDailyMeal, ref int SequenceNumber)
         {
             bool isFound = false;
 
             using (SqlConnection connection = new SqlConnection(clsDataAccessSettings.ConnectionString))
             {
                 string query = @"
-            SELECT [EmployeeID]
-                  ,[EmployeeName]
-                  ,[Position]
-                  ,[JobTitle]
-                  ,[PriceForOneHour]
-                  ,[PriceForDailyMeal]
-            FROM [dbo].[Employees]
-            WHERE EmployeeName = @EmployeeName";
+        SELECT [EmployeeID]
+              ,[EmployeeName]
+              ,[Position]
+              ,[JobTitle]
+              ,[PriceForOneHour]
+              ,[PriceForDailyMeal]
+              ,[SequenceNumber]  
+        FROM [dbo].[Employees]
+        WHERE EmployeeName = @EmployeeName";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -183,6 +207,7 @@ DELETE FROM [dbo].[Employees]
                                 JobTitle = reader["JobTitle"].ToString();
                                 PriceForOneHour = Convert.ToSingle(reader["PriceForOneHour"]);
                                 PriceForDailyMeal = Convert.ToSingle(reader["PriceForDailyMeal"]);
+                                SequenceNumber = Convert.ToInt32(reader["SequenceNumber"]);  // الحصول على قيمة العمود الجديد
                             }
                             else
                             {

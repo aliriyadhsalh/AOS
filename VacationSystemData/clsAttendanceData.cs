@@ -15,12 +15,15 @@ namespace VacationSystemData
         public static async Task<bool?> UpdateAttendStatus(int EmployeeID, DateTime DateFrom,DateTime DateTo,byte AttendStatus)
         {
             string Query = @"UPDATE Attend
-                    SET IsAttend = 
-                     CASE 
-                     WHEN DATEPART(WEEKDAY, Date) = 6 THEN 0  -- يوم الجمعة
-                     ELSE @AttendStatus
-                     END
-                    where EmployeeID = @EmployeeID AND Date >= @DateFrom And Date <= @DateTo";
+SET IsAttend = 
+CASE 
+    WHEN DATEPART(WEEKDAY, Date) = 6 THEN 0  -- يوم الجمعة
+    ELSE @AttendStatus
+END
+WHERE EmployeeID = @EmployeeID 
+AND CAST(Date AS DATE) >= CAST(@DateFrom AS DATE)
+AND CAST(Date AS DATE) <= CAST(@DateTo AS DATE);
+";
             using (SqlCommand command = new SqlCommand(Query))
             {
                 command.Parameters.AddWithValue("@DateFrom", DateFrom);

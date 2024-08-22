@@ -16,6 +16,7 @@ namespace VacationSystemLogic
         public string JobTitle { get; set; } // العنصر الجديد
         public float PriceForOneHour { get; set; } // العنصر الجديد
         public float PriceForDailyMeal { get; set; } // العنصر الجديد
+        public int SequenceNumber { get; set; } // العنصر الجديد
 
         enum enMode { AddNew = 1, Update = 2 }
         enMode Mode = enMode.AddNew;
@@ -28,10 +29,11 @@ namespace VacationSystemLogic
             JobTitle = null;
             PriceForOneHour = 0;
             PriceForDailyMeal = 0;
+            SequenceNumber = 0; // تعيين القيمة الافتراضية
             Mode = enMode.AddNew;
         }
 
-        public clsEmployee(int? id, string name, string position, string jobTitle, float priceForOneHour, float priceForDailyMeal)
+        public clsEmployee(int? id, string name, string position, string jobTitle, float priceForOneHour, float priceForDailyMeal, int sequenceNumber)
         {
             this.EmployeeId = id;
             this.Name = name;
@@ -39,6 +41,7 @@ namespace VacationSystemLogic
             this.JobTitle = jobTitle;
             this.PriceForOneHour = priceForOneHour;
             this.PriceForDailyMeal = priceForDailyMeal;
+            this.SequenceNumber = sequenceNumber;
             Mode = enMode.Update;
         }
 
@@ -54,30 +57,31 @@ namespace VacationSystemLogic
             string JobTitle = "";
             float PriceForOneHour = 0;
             float PriceForDailyMeal = 0;
+            int SequenceNumber = 0; // إضافة الباراميتر الجديد
 
-            bool IsFind = clsEmployeeData.Find(ID, ref Name, ref Position, ref JobTitle, ref PriceForOneHour, ref PriceForDailyMeal);
+            bool IsFind = clsEmployeeData.Find(ID, ref Name, ref Position, ref JobTitle, ref PriceForOneHour, ref PriceForDailyMeal, ref SequenceNumber);
 
             if (IsFind)
-                return new clsEmployee(ID, Name, Position, JobTitle, PriceForOneHour, PriceForDailyMeal);
+                return new clsEmployee(ID, Name, Position, JobTitle, PriceForOneHour, PriceForDailyMeal, SequenceNumber);
             else
                 return null;
         }
 
         public static clsEmployee Find(string Name)
         {
-            int ID = 0; 
+            int ID = 0;
             string Position = "";
             string JobTitle = "";
             float PriceForOneHour = 0;
             float PriceForDailyMeal = 0;
+            int SequenceNumber = 0; // إضافة الباراميتر الجديد
 
-            bool IsFind = clsEmployeeData.Find(Name, ref ID, ref Position, ref JobTitle, ref PriceForOneHour, ref PriceForDailyMeal);
+            bool IsFind = clsEmployeeData.Find(Name, ref ID, ref Position, ref JobTitle, ref PriceForOneHour, ref PriceForDailyMeal, ref SequenceNumber);
 
             if (IsFind)
-                return new clsEmployee(ID, Name, Position, JobTitle, PriceForOneHour, PriceForDailyMeal);
+                return new clsEmployee(ID, Name, Position, JobTitle, PriceForOneHour, PriceForDailyMeal, SequenceNumber);
             else
                 return null;
-
         }
 
         public static async Task<DataTable> GetEmployeeList()
@@ -87,12 +91,12 @@ namespace VacationSystemLogic
 
         private async Task<bool?> _Add()
         {
-            return (this.EmployeeId = await clsEmployeeData.Add(this.Name, this.Position, this.JobTitle, this.PriceForOneHour, this.PriceForDailyMeal)) != null;
+            return (this.EmployeeId = await clsEmployeeData.Add(this.Name, this.Position, this.JobTitle, this.PriceForOneHour, this.PriceForDailyMeal, this.SequenceNumber)) != null;
         }
 
         private async Task<bool?> _Update()
         {
-            bool? update = await (clsEmployeeData.Update(this.EmployeeId.Value, this.Name, this.Position, this.JobTitle, this.PriceForOneHour, this.PriceForDailyMeal));
+            bool? update = await clsEmployeeData.Update(this.EmployeeId.Value, this.Name, this.Position, this.JobTitle, this.PriceForOneHour, this.PriceForDailyMeal, this.SequenceNumber);
             return update.Value;
         }
 

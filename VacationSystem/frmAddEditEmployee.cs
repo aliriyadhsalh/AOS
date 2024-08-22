@@ -37,6 +37,7 @@ namespace VacationSystem
         {
             if (this.ValidateChildren())
             {
+                employee.SequenceNumber = Convert.ToInt32(nSequences.Value);
                 employee.Name = txtEmployeeName.Text;
                 employee.Position = txtposition.Text;
                 employee.JobTitle = txbJobTitle.Text;
@@ -79,6 +80,7 @@ namespace VacationSystem
         {
             if(Mode == enMode.Update)
             {
+                nSequences.Value = employee.SequenceNumber;
                 txtEmployeeName.Text = employee.Name;
                 txtposition.Text = employee.Position;
                 txbJobTitle.Text = employee.JobTitle;

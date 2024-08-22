@@ -7,3 +7,12 @@ C:\Users\msi\source\repos\VacationSystemLogic\bin\Debug\VacationSystemData.pdb
 C:\Users\msi\source\repos\VacationSystemLogic\obj\Debug\Vacation.6FD00492.Up2Date
 C:\Users\msi\source\repos\VacationSystemLogic\obj\Debug\VacationSystemLogic.dll
 C:\Users\msi\source\repos\VacationSystemLogic\obj\Debug\VacationSystemLogic.pdb
+C:\Users\msi\Desktop\AOSystem\VacationSystemLogic\bin\Debug\VacationSystemLogic.dll
+C:\Users\msi\Desktop\AOSystem\VacationSystemLogic\bin\Debug\VacationSystemLogic.pdb
+C:\Users\msi\Desktop\AOSystem\VacationSystemLogic\bin\Debug\VacationSystemData.dll
+C:\Users\msi\Desktop\AOSystem\VacationSystemLogic\bin\Debug\VacationSystemData.pdb
+C:\Users\msi\Desktop\AOSystem\VacationSystemLogic\obj\Debug\VacationSystemLogic.csproj.AssemblyReference.cache
+C:\Users\msi\Desktop\AOSystem\VacationSystemLogic\obj\Debug\VacationSystemLogic.csproj.CoreCompileInputs.cache
+C:\Users\msi\Desktop\AOSystem\VacationSystemLogic\obj\Debug\Vacation.6FD00492.Up2Date
+C:\Users\msi\Desktop\AOSystem\VacationSystemLogic\obj\Debug\VacationSystemLogic.dll
+C:\Users\msi\Desktop\AOSystem\VacationSystemLogic\obj\Debug\VacationSystemLogic.pdb
